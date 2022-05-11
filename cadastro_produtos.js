@@ -10,24 +10,25 @@ const conexao = {
 };
 
 
-function inserir(nome, preco, callback){
+function inserir(produto, callback){
     const cliente = new Client(conexao);
     cliente.connect();
-    let produtoInserido = [nome, preco];
-    const sql = "INSERT INTO produtos (nome, preco) VALUES ($1, $2)";
-    let produto;
+
+    let produtoInserido = [produto.nome, produto.preco];
+    const sql = "INSERT INTO produtos (nome, preco) VALUES ($1, $2) RETURNING *";
+    let product;
     cliente.query(sql, produtoInserido, 
         function (err, res){
             if (err) {
                 callback(err.message, undefined);
             } else {
-                let produto = "Produto: "+ produtoInserido[0] + " inserido com sucesso."
-                callback(undefined, produto)
+                product = res.rows[0];
+                callback(undefined, product);
             }
         cliente.end();
         }
     );
-    return produto;
+    return product;
 }; 
 
 

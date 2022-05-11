@@ -1,14 +1,14 @@
 const cadastroProdutos = require('./cadastro_produtos.js')
 
-Main
+//Main
 
-cadastroProdutos.inserir("impressora epson 3110", 1300.99, 
-    function (err, produto){
+cadastroProdutos.inserir({nome: "pastel", preco: 5}, 
+    function (err, produtoInserido){
         console.log("Função INSERIR:");
         if (err){
             console.log(err);
         } else {
-            console.log(produto);
+            console.log("Produto inserido:"); console.log(produtoInserido);
         }
         console.log("---------------------------------------------------------------");
     }
@@ -55,7 +55,7 @@ cadastroProdutos.atualizar(5, "mouse", 10,
     });
 
 
-cadastroProdutos.deletar(20, 
+cadastroProdutos.deletar(4, 
     function(err,produto){
         console.log("Função DELETAR PRODUTOS");
         if (err){
